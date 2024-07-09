@@ -31,3 +31,12 @@ class Solution:
                 l2 = l2.next
 
         return dummy.next
+
+# Simplified Approach in 4 Lines:
+        # 1. Traverse both linked lists using pointers, summing nodes' values with carry-over.
+        # 2. Add values and previous carry, compute new carry and the digit.
+        # 3. Append each sum's result to a new linked list via a dummy node.
+        # 4. Move pointers to the next nodes until all nodes are processed, and no carry remains.
+
+        # Time Complexity: O(max(m, n)), where m and n are lengths of the two lists.
+        # Space Complexity: O(max(m, n)) to store the result, potentially one extra for a final carry.
