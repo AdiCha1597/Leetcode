@@ -13,5 +13,15 @@ class Solution:
             if slow == fast:
                 return True
         return False
+
+
+#Approach:
+#Use two pointers, slow and fast, starting at the head of the list.
+#Move slow one step and fast two steps in each iteration.
+#If they meet, there is a cycle; if fast reaches the end, there is no cycle.
+#Time Complexity:
+#O(n): where n is the number of nodes in the linked list.
+#Space Complexity:
+#O(1): only a constant amount of extra space is used.
             
         
