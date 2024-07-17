@@ -6,13 +6,11 @@ class Solution:
         
         for n in nums:
             cnt = 1  # Start counting with the current number
-            curr = n + 1  # Next number to look for in the sequence
             # Only start counting if 'n' is the beginning of a sequence
             if (n - 1) not in nums_set:
                 # Increment the sequence length if the next number is in the set
-                while curr in nums_set:
+                while n+cnt  in nums_set:
                     cnt += 1
-                    curr += 1
                 # Update the maximum length found so far
                 maxVal = max(maxVal, cnt)
         return maxVal
