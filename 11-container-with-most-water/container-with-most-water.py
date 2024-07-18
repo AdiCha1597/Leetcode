@@ -14,5 +14,10 @@ class Solution:
             res = max(curr, res)
         return res
 
+"""
+	•	Approach: Two-pointer technique.
+	•	Time Complexity: (O(n)), because each pointer moves at most n times.
+	•	Space Complexity: O(1), as only a constant amount of extra space is used.
+"""
         
         
