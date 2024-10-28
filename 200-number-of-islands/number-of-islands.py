@@ -1,59 +1,46 @@
+# Brute Force Approach:
+# Traverse each cell in the grid; for each cell that is '1', mark all connected cells as '0' to avoid double-counting.
+# Count each traversal as a separate island. This approach modifies the grid in place.
+# Time Complexity: O((M * N)^2) because each traversal may visit every cell multiple times.
+# Space Complexity: O(1) (no additional space used, but modifies input grid).
+
+# Approach:
+# Use Breadth-First Search (BFS) to find all connected cells for each island. For each unvisited land cell, run BFS 
+# to mark all connected land cells as visited. Increment the island count after each BFS completes.
+
+from typing import List
+import collections
+
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
-        #if empty grid, return 0
-        if not grid:
-            return 0
-        # store the number of rows and columns
-        rows, cols = len(grid), len(grid[0])
-        # take a set ffor storing all the visited land
-        visited = set()
-        #take a variable to store the number of islands result
-        islands = 0
+        if not grid: return 0  # if grid is empty, return 0 islands
 
-        def bfs(r,c):
-            # take a queue to store the future elements to run bfs on
-            q = collections.deque()
-            # add the r,c to the visited set and queue
-            visited.add((r,c))
-            q.append((r,c))
+        rows, cols = len(grid), len(grid[0])  # store the number of rows and columns
+        visited = set()  # set to store visited land cells
+        islands = 0  # variable to store the result, the number of islands
 
-            # while we land element in the queue
-            while q:
-                # popleft row and col from the queue
-                row, col = q.popleft()
-                # store all the 4 directions that we can go from any element.
-                dirs = [[1,0], [-1, 0], [0,1], [0,-1]]
-
-                # iterate every direction from the current element(row, col)
-                for dr, dc in dirs:
+        def bfs(r, c):
+            q = collections.deque()  # queue for BFS
+            visited.add((r, c))  # add cell to visited set
+            q.append((r, c))  # add cell to queue
+            while q:  # while there are cells in the queue
+                row, col = q.popleft()  # pop leftmost cell from queue
+                dirs = [[1, 0], [-1, 0], [0, 1], [0, -1]]  # four possible directions
+                for dr, dc in dirs:  # iterate through all directions
                     r, c = row + dr, col + dc
-                    # if the new directed element is in range,
-                    # is 1 and not visited already, 
-                    # append to q and add to visited
-                    if(r in range(rows) and
-                    c in range(cols) and
-                    grid[r][c] == "1" and 
-                    (r,c) not in visited):
-                        q.append((r,c))
-                        visited.add((r,c))
+                    if (r in range(rows) and c in range(cols) and grid[r][c] == "1" and (r, c) not in visited):
+                        q.append((r, c))  # add cell to queue if it meets criteria
+                        visited.add((r, c))  # mark cell as visited
 
-        # iterate through the grid elements             
-        for r in range(rows):
-            for c in range(cols):
-                #and run bfs on the elements that are 
-                #land and are not already visited.
-                if grid[r][c] == '1' and (r,c) not in visited:
-                    bfs(r,c)
-                    # increment the island once the entire island is processed.
-                    islands += 1
-        return islands  
+        for r in range(rows):  # iterate through grid rows
+            for c in range(cols):  # iterate through grid columns
+                if grid[r][c] == '1' and (r, c) not in visited:  # start BFS on unvisited land
+                    bfs(r, c)  # run BFS on the cell
+                    islands += 1  # increment island count after BFS
+
+        return islands  # return the total count of islands
+
 """
 Time Complexity: O(M * N), where M is the number of rows and N is the number of columns, because each cell is processed once.
-
-Space Complexity: O(M * N) due to the visited set and the BFS queue that can potentially store all cells. 
-"""      
-
-
-        
-
-
+Space Complexity: O(M * N) due to the visited set and the BFS queue that can potentially store all cells.
+"""  
